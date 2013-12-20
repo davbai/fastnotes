@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+		<title>fastnotes</title>
+
+		<link rel="stylesheet" type="text/css" href="style.css">
+	</head>
+
+	<body lang="en">
+		<script type="text/javascript">
+    		window.onload = function() {
+        		document.getElementById("textbox").focus();
+    		};
+
+    		window.onbeforeunload = function(evt){
+    			// Only show popup message if the textbox is not empty
+    			if (document.getElementById("textbox").innerText) {
+    				var msg = "If you leave this page, your notes will be lost.";
+    				evt = evt || window.event;
+    				if(evt)
+       					evt.returnValue = msg;
+    				return msg;
+    			}
+			}	
+		</script>
+
+		<div id="textbox" contenteditable="true" />
+	</body>
+</html>
