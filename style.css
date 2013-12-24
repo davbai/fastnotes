@@ -1,23 +1,49 @@
 body
 {
-	font-family: Cambria,Georgia,serif;
+    font-family: Cambria,Georgia,serif;
+    margin: 0px;
 }
 
-#textbox
+#metabar
 {
-	outline: 0px solid transparent;
-	font-size: 22px;
-	line-height: 33px;
-	max-width: 700px;
-	margin: 0 auto;
-	padding: 88px 44px;
+    position: fixed;
+    right: 0px;
+    height: 53px;
 }
 
 #charcount
 {
-	font-size: 16px;
-	color: #B3B3B3;
-	float: right;
-	margin: 10px;
+    font-size: 16px;
+    margin: 17px 0px;
+    width: 45px;
+    text-align: right;
+}
 
+#textbox
+{
+    outline: 0px solid transparent;
+    font-size: 22px;
+    line-height: 33px;
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 88px 44px;
+}
+
+.metabar-item
+{
+    display: inline-block;
+    vertical-align: top;
+    color: #DEDEDE;
+}
+
+.metabar-btn
+{
+    background: #DEDEDE;
+    margin: 14px;
+    outline: 0px solid transparent;
+}
+
+.metabar-btn:hover
+{
+    background: #B3B3B3;
 }
