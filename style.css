@@ -1,49 +1,88 @@
-body
-{
-    font-family: Cambria,Georgia,serif;
+/* ==========
+BASE STYLES
+========== */
+body {
+    font-family: "Lucida Grande","Lucida Sans",Geneva,Verdana,sans-serif;
     margin: 0px;
+    padding: 0px;
 }
 
-#metabar
-{
+/* ==========
+METABAR
+========== */
+#metabar {
+    /*Adds the transparent background */
+/*    background-color: rgba(255, 255, 255, 0.8);
+    color: rgba(255, 255, 255, 0.8);*/
+    background-color: #FFFFFF;
+    border-bottom: 1px solid #F5F5F5;
+    height: 53px;
     position: fixed;
     right: 0px;
-    height: 53px;
+    top: 0;
+    text-align: right;
+    width: 100%;
+
+     /*Adds shadow to the bottom of the bar */
+    -webkit-box-shadow: 0px 0px 8px 0px #000000;
+    -moz-box-shadow: 0px 0px 8px 0px #000000;
+    box-shadow: 0px 0px 4px 0px #DEDEDE;
 }
 
-#charcount
-{
+#char-count {
     font-size: 16px;
     margin: 17px 0px;
-    width: 45px;
     text-align: right;
+    width: 45px;
 }
 
-#textbox
-{
-    outline: 0px solid transparent;
-    font-size: 22px;
-    line-height: 33px;
-    max-width: 700px;
-    margin: 0 auto;
-    padding: 88px 44px;
-}
-
-.metabar-item
-{
+.metabar-item {
+    color: #DEDEDE;
     display: inline-block;
     vertical-align: top;
-    color: #DEDEDE;
 }
 
-.metabar-btn
-{
+.metabar-btn {
     background: #DEDEDE;
     margin: 14px;
     outline: 0px solid transparent;
 }
 
-.metabar-btn:hover
-{
+.metabar-btn:hover {
     background: #B3B3B3;
+}
+
+/* ==========
+NOTE CONTENT
+========== */
+#note-container {
+    margin: 0 auto;
+    max-width: 700px;
+    padding-bottom: 30px;
+    padding-top: 70px;
+}
+
+#note-title {
+    font-size: 30px;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+}
+
+#note-body {
+    color: #444444;
+    font-family: Georgia,Cambria,"Times New Roman",serif;
+    font-size: 20px;
+    font-weight: 100;
+    letter-spacing: .02em;
+    line-height: 33px;
+    margin-top: 16px;
+}
+
+[contenteditable=true] {
+    outline: 0px solid transparent;
+}
+
+[contenteditable=true]:empty:before {
+    content:attr(data-default-value);
+    color: #DEDEDE;
 }

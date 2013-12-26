@@ -9,11 +9,13 @@
 
     <body lang="en">
         <div id="metabar">
-            <span id="charcount" class="metabar-item">0</span>
+            <span id="char-count" class="metabar-item">0</span>
             <input type="image" class="metabar-item metabar-btn" src="img/download.png" alt="Download Note" onclick="downloadNote()">
         </div>
-
-        <div id="textbox" contenteditable="true"></div>
+        <div id="note-container">
+            <div id="note-title" contenteditable="true" data-default-value="Untitled"></div>
+            <div id="note-body" contenteditable="true" data-default-value="Write your note.."></div>
+        </div>
 
         <script type="text/javascript" src="js/jquery-2.0.3.min.js"></script>
         <script type="text/javascript" src="js/main.js">

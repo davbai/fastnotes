@@ -1,10 +1,9 @@
 // Globals
-var $textBox        = $("#textbox"),
-    $charCount      = $("#charcount");
-    $downloadBtn    = $("#")
+var $noteBody        = $("#note-body"),
+    $charCount      = $("#char-count");
 
 function alertPageClose(evt) {
-    if ($textBox.text()) { // Only show popup message if the textbox is not empty
+    if ($noteBody.text()) { // Only show popup message if the noteBody is not empty
         var msg = "If you leave this page, your notes will be lost.";
         evt = evt || window.event;
         if (evt) {
@@ -16,15 +15,15 @@ function alertPageClose(evt) {
 
 function updateCharacterCount() {
     $charCount.text(function () {
-        return $textBox.text().length;
+        return $noteBody.text().length;
     });
 }
 
 // Simple hack to download note as a txt file
 function downloadNote() {
-    if ($textBox.text()) { // Only download if there is text present
+    if ($noteBody.text()) { // Only download if there is text present
         var tempLink = document.createElement('a');
-        tempLink.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent($textBox.text()));
+        tempLink.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent($noteBody.text()));
         tempLink.setAttribute('download', "Untitled.txt");
 
         document.body.appendChild(tempLink); // For FF
@@ -36,8 +35,8 @@ function downloadNote() {
 
 $(document).ready(function () {
     $(window).on("load", function () { 
-        $textBox.focus();
+        $noteBody.focus();
     });
     $(window).on("beforeunload", alertPageClose);
-    $textBox.on("keyup", updateCharacterCount);
+    $noteBody.on("keyup", updateCharacterCount);
 });
