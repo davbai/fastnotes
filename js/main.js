@@ -4,6 +4,7 @@ $(function() {
     var $noteBody       = $("#note-body"),
         $noteTitle      = $("#note-title"),
         $charCount      = $("#char-count"),
+        $emailBtn       = $("#email-btn"),
         $downloadBtn    = $("#download-btn");
 
     function init() {
@@ -20,6 +21,7 @@ $(function() {
 
     function bindElements() {
         $noteBody.on("keyup", updateCharacterCount);
+        $emailBtn.on("click", emailNote);
         $downloadBtn.on("click", downloadNote);
     }
 
@@ -38,6 +40,13 @@ $(function() {
         $charCount.text(function () {
             return $noteBody.text().length;
         });
+    }
+
+    function emailNote() {
+        var subject = $noteTitle.text();
+        var body = $noteBody.html().replace(/<br>/g, "\n").replace(/<div>/g, "\n").replace(/<\/div>/g, "");
+        var uri = "mailto:?subject=" + subject + "&body=" + encodeURIComponent(body);
+        window.open(uri);
     }
 
     function downloadNote() {
