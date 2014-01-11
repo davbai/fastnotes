@@ -1,42 +1,54 @@
-// Globals
-var $noteBody        = $("#note-body"),
-    $charCount      = $("#char-count");
+$(function() {
 
-function alertPageClose(evt) {
-    if ($noteBody.text()) { // Only show popup message if the noteBody is not empty
-        var msg = "If you leave this page, your notes will be lost.";
-        evt = evt || window.event;
-        if (evt) {
-            evt.returnValue = msg;
+    // Elements
+    var $noteBody       = $("#note-body"),
+        $noteTitle      = $("#note-title"),
+        $charCount      = $("#char-count"),
+        $downloadBtn    = $("#download-btn");
+
+    function init() {
+        bindEvents();
+        bindElements();
+    }
+
+    function bindEvents() {
+        $(window).on("load", function () { 
+            $noteBody.focus();
+        });
+        $(window).on("beforeunload", alertPageClose);
+    }
+
+    function bindElements() {
+        $noteBody.on("keyup", updateCharacterCount);
+        $downloadBtn.on("click", downloadNote);
+    }
+
+    function alertPageClose(evt) {
+        if ($noteBody.text()) { // Only show popup message if the noteBody is not empty
+            var msg = "If you leave this page, your notes will be lost.";
+            evt = evt || window.event;
+            if (evt) {
+                evt.returnValue = msg;
+            }
+            return msg;
         }
-        return msg;
     }
-}
 
-function updateCharacterCount() {
-    $charCount.text(function () {
-        return $noteBody.text().length;
-    });
-}
-
-// Simple hack to download note as a txt file
-function downloadNote() {
-    if ($noteBody.text()) { // Only download if there is text present
-        var tempLink = document.createElement('a');
-        tempLink.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent($noteBody.text()));
-        tempLink.setAttribute('download', "Untitled.txt");
-
-        document.body.appendChild(tempLink); // For FF
-        tempLink.click();
-
-        document.body.removeChild(tempLink);
+    function updateCharacterCount() {
+        $charCount.text(function () {
+            return $noteBody.text().length;
+        });
     }
-}
 
-$(document).ready(function () {
-    $(window).on("load", function () { 
-        $noteBody.focus();
-    });
-    $(window).on("beforeunload", alertPageClose);
-    $noteBody.on("keyup", updateCharacterCount);
+    function downloadNote() {
+        if ($noteBody.text()) {
+            // Only supports plain txt files for now
+            var formattedText = $noteBody.html().replace(/<br>/g, "\n").replace(/<div>/g, "\n").replace(/<\/div>/g, "");
+            var fileName = $noteTitle.text() ? $noteTitle.text() + ".txt" : "Untitled.txt";
+            saveAs(new Blob([formattedText], {type: "text/plain;charset=" + document.characterSet}), fileName); 
+        }
+    }
+
+    init();
+
 });
