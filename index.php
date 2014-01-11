@@ -5,13 +5,14 @@
         <meta charset="utf-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <title>fastnotes</title>
+        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="style.css">
     </head>
 
     <body lang="en">
         <div id="metabar">
             <span id="char-count" class="metabar-item">0</span>
-            <input id="download-btn" type="image" class="metabar-item metabar-btn" src="img/download.png" alt="Download Note">
+        	<button id="download-btn" class="metabar-item metabar-btn" title="Download Note"><i class="fa fa-cloud-download fa-2x"></i></button>
         </div>
         <div id="note-container">
             <div id="note-title" contenteditable="true" data-default-value="Untitled"></div>

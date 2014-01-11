@@ -17,6 +17,7 @@ METABAR
     background-color: #FFFFFF;
     /*border-bottom: 1px solid #F5F5F5;*/
     height: 53px;
+    padding-right: 7px;
     position: fixed;
     right: 0px;
     top: 0;
@@ -31,7 +32,7 @@ METABAR
 
 #char-count {
     font-size: 16px;
-    margin: 17px 0px;
+    margin: 17px 7px;
     text-align: right;
     width: 45px;
 }
@@ -39,17 +40,22 @@ METABAR
 .metabar-item {
     color: #DEDEDE;
     display: inline-block;
+    height: 25px;
     vertical-align: top;
 }
 
 .metabar-btn {
-    background: #DEDEDE;
-    margin: 14px;
+    background: none;
+    border: none;
+    cursor: pointer; 
+    margin: 14px 7px 14px 0px;
+    padding: 0px;
     outline: 0px solid transparent;
+    width: 25px;
 }
 
 .metabar-btn:hover {
-    background: #B3B3B3;
+    color: #B3B3B3;
 }
 
 /* ==========
