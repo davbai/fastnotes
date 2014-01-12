@@ -3,6 +3,7 @@ $(function() {
     // Elements
     var $noteBody       = $("#note-body"),
         $noteTitle      = $("#note-title"),
+        $wordCount      = $("#word-count"),
         $charCount      = $("#char-count"),
         $emailBtn       = $("#email-btn"),
         $downloadBtn    = $("#download-btn");
@@ -20,7 +21,7 @@ $(function() {
     }
 
     function bindElements() {
-        $noteBody.on("keyup", updateCharacterCount);
+        $noteBody.on("keyup", updateNoteStats);
         $emailBtn.on("click", emailNote);
         $downloadBtn.on("click", downloadNote);
     }
@@ -36,15 +37,29 @@ $(function() {
         }
     }
 
-    function updateCharacterCount() {
+    function updateNoteStats() {
+        $wordCount.text(function () {
+            // Using $noteBody.text() doesn't translate returns (<br>'s) into spaces
+            var words = $noteBody.html()
+                                .replace(/<br>|<div>|<\/div>/g, " ")
+                                .split(/\s+/g);
+            var count = words.indexOf("") === -1 ? words.length : words.length - 1;
+            var text = count === 1 ? count + " word" : count + " words"; // Singular vs plural
+            return text;
+        });
+
         $charCount.text(function () {
-            return $noteBody.text().length;
+            var count = $noteBody.text().length;
+            var text = count === 1 ? count + " character" : count + " characters"; // Singular vs plural
+            return text;
         });
     }
 
     function emailNote() {
         var subject = $noteTitle.text();
-        var body = $noteBody.html().replace(/<br>/g, "\n").replace(/<div>/g, "\n").replace(/<\/div>/g, "");
+        var body = $noteBody.html()
+                            .replace(/<br>|<div>/g, "\n")
+                            .replace(/<\/div>|&nbsp;/g, "");
         var uri = "mailto:?subject=" + subject + "&body=" + encodeURIComponent(body);
         window.open(uri);
     }
@@ -52,9 +67,11 @@ $(function() {
     function downloadNote() {
         if ($noteBody.text()) {
             // Only supports plain txt files for now
-            var formattedText = $noteBody.html().replace(/<br>/g, "\n").replace(/<div>/g, "\n").replace(/<\/div>/g, "");
+            var body = $noteBody.html()
+                                .replace(/<br>|<div>/g, "\n")
+                                .replace(/<\/div>|&nbsp;/g, "");
             var fileName = $noteTitle.text() ? $noteTitle.text() + ".txt" : "Untitled.txt";
-            saveAs(new Blob([formattedText], {type: "text/plain;charset=" + document.characterSet}), fileName); 
+            saveAs(new Blob([body], {type: "text/plain;charset=" + document.characterSet}), fileName); 
         }
     }
 
