@@ -36,6 +36,11 @@ METABAR
     text-align: right;
 }
 
+#previous-btn, #new-btn {
+    float: left;
+    margin: 14px;
+}
+
 .metabar-item {
     color: #DEDEDE;
     display: inline-block;

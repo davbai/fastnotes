@@ -5,10 +5,19 @@ $(function() {
         $noteTitle      = $("#note-title"),
         $wordCount      = $("#word-count"),
         $charCount      = $("#char-count"),
+        $previousBtn    = $("#previous-btn"),
+        $newBtn         = $("#new-btn"),
         $emailBtn       = $("#email-btn"),
         $downloadBtn    = $("#download-btn");
 
     function init() {
+        // By default always load a blank note, so new button is hidden
+        $newBtn.css({display: "none"});
+
+        if (!supportHtmlStorage) {
+            $previousBtn.css({display: "none"});
+        }
+
         bindEvents();
         bindElements();
     }
@@ -17,11 +26,19 @@ $(function() {
         $(window).on("load", function () { 
             $noteBody.focus();
         });
-        $(window).on("beforeunload", alertPageClose);
+
+        if (!supportHtmlStorage) {
+            // Alerts that note is lost on page close if localStorage is not supported
+            $(window).on("beforeunload", alertPageClose);
+        } else {
+            $(window).on("beforeunload", saveNote);
+        }
     }
 
     function bindElements() {
         $noteBody.on("keyup", updateNoteStats);
+        $previousBtn.on("click", loadPreviousNote);
+        $newBtn.on("click", newNote);
         $emailBtn.on("click", emailNote);
         $downloadBtn.on("click", downloadNote);
     }
@@ -55,6 +72,30 @@ $(function() {
         });
     }
 
+    function saveNote() {
+        // At any given time, fastnotes only keeps track of one previous note at a time
+        if ($noteBody.text()) { // Only save note if the noteBody is not empty
+            localStorage["fnTitle"] = $noteTitle.text();
+            localStorage["fnBody"] = $noteBody.html();
+        }
+    }
+
+    function loadPreviousNote() {
+        $newBtn.css({display: "inline-block"});
+        $previousBtn.css({display: "none"});
+
+        $noteTitle.text(localStorage["fnTitle"]);
+        $noteBody.html(localStorage["fnBody"]);
+    }
+
+    function newNote() {
+        $newBtn.css({display: "none"});
+        $previousBtn.css({display: "inline-block"});
+
+        $noteTitle.text("");
+        $noteBody.html("");
+    }
+
     function emailNote() {
         var subject = $noteTitle.text();
         var body = $noteBody.html()
@@ -72,6 +113,14 @@ $(function() {
                                 .replace(/<\/div>|&nbsp;/g, "");
             var fileName = $noteTitle.text() ? $noteTitle.text() + ".txt" : "Untitled.txt";
             saveAs(new Blob([body], {type: "text/plain;charset=" + document.characterSet}), fileName); 
+        }
+    }
+
+    function supportHtmlStorage() {
+        try {
+            return "localStorage" in window && window["localStorage"] !== null;
+        } catch(e) {
+            return false;
         }
     }
 
