@@ -6,13 +6,15 @@ $(function() {
         $wordCount      = $("#word-count"),
         $charCount      = $("#char-count"),
         $previousBtn    = $("#previous-btn"),
-        $newBtn         = $("#new-btn"),
+        $currentBtn     = $("#current-btn"),
         $emailBtn       = $("#email-btn"),
         $downloadBtn    = $("#download-btn");
 
+    var currentTitle, currentBody;
+
     function init() {
         // By default always load a blank note, so new button is hidden
-        $newBtn.css({display: "none"});
+        $currentBtn.css({display: "none"});
 
         if (!supportHtmlStorage) {
             $previousBtn.css({display: "none"});
@@ -38,7 +40,7 @@ $(function() {
     function bindElements() {
         $noteBody.on("keyup", updateNoteStats);
         $previousBtn.on("click", loadPreviousNote);
-        $newBtn.on("click", newNote);
+        $currentBtn.on("click", loadCurrentNote);
         $emailBtn.on("click", emailNote);
         $downloadBtn.on("click", downloadNote);
     }
@@ -81,19 +83,31 @@ $(function() {
     }
 
     function loadPreviousNote() {
-        $newBtn.css({display: "inline-block"});
+        $currentBtn.css({display: "inline-block"});
         $previousBtn.css({display: "none"});
+
+        // Store whatever has been written so far in new session in case we want to go back to the current note
+        currentTitle = $noteTitle.text();
+        currentBody = $noteBody.html();
 
         $noteTitle.text(localStorage["fnTitle"]);
         $noteBody.html(localStorage["fnBody"]);
+
+        updateNoteStats();
     }
 
-    function newNote() {
-        $newBtn.css({display: "none"});
+    function loadCurrentNote() {
+        $currentBtn.css({display: "none"});
         $previousBtn.css({display: "inline-block"});
 
-        $noteTitle.text("");
-        $noteBody.html("");
+        // Save anything that has been changed in the previous note (the one currently in localStorage)
+        localStorage["fnTitle"] = $noteTitle.text();
+        localStorage["fnBody"] = $noteBody.html();
+
+        $noteTitle.text(currentTitle);
+        $noteBody.html(currentBody);
+
+        updateNoteStats();
     }
 
     function emailNote() {

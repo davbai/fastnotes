@@ -36,7 +36,7 @@ METABAR
     text-align: right;
 }
 
-#previous-btn, #new-btn {
+#previous-btn, #current-btn {
     float: left;
     margin: 14px;
 }

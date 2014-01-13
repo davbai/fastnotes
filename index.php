@@ -12,7 +12,7 @@
     <body lang="en">
         <div id="metabar">
             <button id="previous-btn" class="metabar-item metabar-btn" title="Previous Note"><i class="fa fa-chevron-left fa-2x"></i></button>
-            <button id="new-btn" class="metabar-item metabar-btn" title="New Note"><i class="fa fa-plus fa-2x"></i></button>
+            <button id="current-btn" class="metabar-item metabar-btn" title="Current Note"><i class="fa fa-chevron-right fa-2x"></i></button>
             <span id="word-count" class="metabar-item">0 words</span>
             <span id="char-count" class="metabar-item">0 characters</span>
             <button id="email-btn" class="metabar-item metabar-btn" title="Email Note"><i class="fa fa-envelope-o fa-2x"></i></button>
