@@ -1,15 +1,12 @@
 $(function() {
 
-    // Elements
+    // Cached elements
     var $noteBody       = $("#note-body"),
         $noteTitle      = $("#note-title"),
-        $wordCount      = $("#word-count"),
-        $charCount      = $("#char-count"),
         $previousBtn    = $("#previous-btn"),
-        $currentBtn     = $("#current-btn"),
-        $emailBtn       = $("#email-btn"),
-        $downloadBtn    = $("#download-btn");
+        $currentBtn     = $("#current-btn");
 
+    // To store the title and body of the current note (incase we navigate to a previously written note)
     var currentTitle, currentBody;
 
     function init() {
@@ -41,8 +38,8 @@ $(function() {
         $noteBody.on("keyup", updateNoteStats);
         $previousBtn.on("click", loadPreviousNote);
         $currentBtn.on("click", loadCurrentNote);
-        $emailBtn.on("click", emailNote);
-        $downloadBtn.on("click", downloadNote);
+        $("#email-btn").on("click", emailNote);
+        $("#download-btn").on("click", downloadNote);
     }
 
     function alertPageClose(evt) {
@@ -57,7 +54,7 @@ $(function() {
     }
 
     function updateNoteStats() {
-        $wordCount.text(function () {
+        $("#word-count").text(function () {
             // Using $noteBody.text() doesn't translate returns (<br>'s) into spaces
             var words = $noteBody.html()
                                 .replace(/<br>|<div>|<\/div>/g, " ")
@@ -67,7 +64,7 @@ $(function() {
             return text;
         });
 
-        $charCount.text(function () {
+        $("#char-count").text(function () {
             var count = $noteBody.text().length;
             var text = count === 1 ? count + " character" : count + " characters"; // Singular vs plural
             return text;
