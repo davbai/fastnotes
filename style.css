@@ -30,36 +30,56 @@ METABAR
     box-shadow: 0px 0px 4px 0px #DEDEDE;*/
 }
 
-#char-count, #word-count {
-    font-size: 12px;
-    margin: 19px 7px 0px 0px;
-    text-align: right;
-}
-
-#previous-btn, #current-btn {
-    float: left;
-    margin: 14px;
-}
-
 .metabar-item {
-    color: #DEDEDE;
-    display: inline-block;
-    height: 25px;
-    vertical-align: top;
-}
-
-.metabar-btn {
     background: none;
     border: none;
-    cursor: pointer; 
+    color: #DEDEDE;
+    cursor: pointer;
+    display: inline-block;
+    height: 25px; 
     margin: 14px 7px 14px 0px;
     padding: 0px;
     outline: 0px solid transparent;
+    vertical-align: top;
     width: 25px;
 }
 
 .metabar-btn:hover {
+    color: #B8B8B8;
+}
+
+/* ==========
+STATS DROP DOWN
+========== */
+.stats-drop-down {
+    -webkit-border-radius: 6px; 
+    -moz-border-radius: 6px; 
+    -ms-border-radius: 6px; 
+    -o-border-radius: 6px; 
+    border-radius: 6px;  
+    -webkit-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.2); 
+    -moz-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.2); 
+    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.2); 
+    display: none;
+    height: 42px;
+    padding: 7px;
+    position: absolute; 
+    right: 53px; 
+    width: auto; 
+}
+
+#word-count, #char-count {
     color: #B3B3B3;
+    font-size: 12px;
+    margin: 4px 0px;
+    text-align: left;
+}
+.tail {
+    color: #FFFFFF;
+    text-shadow: 0px -4px 12px rgba(0, 0, 0, 0.2);
+    position: absolute;
+    right: 40px;
+    top: -20px;
 }
 
 /* ==========

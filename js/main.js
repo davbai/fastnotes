@@ -4,7 +4,9 @@ $(function() {
     var $noteBody       = $("#note-body"),
         $noteTitle      = $("#note-title"),
         $previousBtn    = $("#previous-btn"),
-        $currentBtn     = $("#current-btn");
+        $currentBtn     = $("#current-btn"),
+        $statsBtn       = $("#stats-btn"),
+        $statsDropDown  = $(".stats-drop-down");
 
     // To store the title and body of the current note (incase we navigate to a previously written note)
     var currentTitle, currentBody;
@@ -26,6 +28,12 @@ $(function() {
             $noteBody.focus();
         });
 
+        $(document).on("click", function() {
+            if ($statsDropDown.css("display") === "block") {
+                $statsDropDown.css({display: "none"}); // Hides drop down
+            }
+        });
+
         if (!supportHtmlStorage) {
             // Alerts that note is lost on page close if localStorage is not supported
             $(window).on("beforeunload", alertPageClose);
@@ -35,9 +43,9 @@ $(function() {
     }
 
     function bindElements() {
-        $noteBody.on("keyup", updateNoteStats);
         $previousBtn.on("click", loadPreviousNote);
         $currentBtn.on("click", loadCurrentNote);
+        $statsBtn.on("click", showNoteStats);
         $("#email-btn").on("click", emailNote);
         $("#download-btn").on("click", downloadNote);
     }
@@ -50,6 +58,16 @@ $(function() {
                 evt.returnValue = msg;
             }
             return msg;
+        }
+    }
+
+    function showNoteStats(evt) {
+        evt.stopPropagation(); // Don't propagate click event to document
+        if ($statsDropDown.css("display") === "none") {
+            updateNoteStats();
+            $statsDropDown.css({display: "block"});
+        } else {
+            $statsDropDown.css({display: "none"});
         }
     }
 

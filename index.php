@@ -11,10 +11,14 @@
 
     <body lang="en">
         <div id="metabar">
-            <button id="previous-btn" class="metabar-item metabar-btn" title="Previous Note"><i class="fa fa-chevron-left fa-2x"></i></button>
-            <button id="current-btn" class="metabar-item metabar-btn" title="Current Note"><i class="fa fa-chevron-right fa-2x"></i></button>
-            <span id="word-count" class="metabar-item">0 words</span>
-            <span id="char-count" class="metabar-item">0 characters</span>
+            <button id="previous-btn" class="metabar-item metabar-btn" title="Previous Note"><i class="fa fa-angle-left fa-2x"></i></button>
+            <button id="current-btn" class="metabar-item metabar-btn" title="Current Note"><i class="fa fa-angle-right fa-2x"></i></button>
+            <button id="stats-btn" class="metabar-item metabar-btn" title="Note Stats"><i class="fa fa-bar-chart-o fa-2x"></i></button>
+            <div class="stats-drop-down">
+                <span class="tail"><i class="fa fa-caret-up fa-2x"></i></span>
+                <div id="word-count">0 words</div>
+                <div id="char-count">0 characters</div>
+            </div>
             <button id="email-btn" class="metabar-item metabar-btn" title="Email Note"><i class="fa fa-envelope-o fa-2x"></i></button>
             <button id="download-btn" class="metabar-item metabar-btn" title="Download Note"><i class="fa fa-cloud-download fa-2x"></i></button>
         </div>
